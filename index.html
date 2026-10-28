@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Registro · Lanzamiento oficial LAZIA</title>
+<meta name="description" content="Registro de invitados al lanzamiento oficial de LAZIA Software. 24 de noviembre de 2026, 5:00 p. m.">
+<meta name="theme-color" content="#060610">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"></script>
+<style>
+:root{
+  --bg:#060610; --bg2:#0a1030;
+  --card:rgba(12,18,48,.72); --card-solid:#0c1230;
+  --line:rgba(124,144,255,.18); --line-strong:rgba(124,144,255,.35);
+  --text:#eef1ff; --muted:#9aa3c7; --dim:#6b7398;
+  --blue:#3b6dff; --violet:#8b46ff; --pink:#c64bff; --cyan:#58b8ff;
+  --ok:#38d39f; --warn:#ffb547; --err:#ff5c7a;
+  --grad:linear-gradient(90deg,var(--blue),var(--violet) 55%,var(--pink));
+  --radius:20px;
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  font-family:"Outfit",system-ui,sans-serif; color:var(--text); background:var(--bg);
+  min-height:100vh; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+[hidden]{display:none!important}
+a{color:inherit}
+.mono{font-family:var(--mono)}
+
+/* ---------- Escenario de fondo ---------- */
+.scene{position:fixed;inset:0;z-index:-1;overflow:hidden;
+  background:
+    radial-gradient(1100px 520px at 50% -12%, rgba(59,109,255,.38), transparent 62%),
+    radial-gradient(700px 520px at 105% 55%, rgba(139,70,255,.28), transparent 60%),
+    radial-gradient(640px 480px at -5% 70%, rgba(47,107,255,.24), transparent 60%),
+    var(--bg);}
+.floor{position:absolute;left:-60%;right:-60%;bottom:-18%;height:60%;
+  background-image:linear-gradient(rgba(96,124,255,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(96,124,255,.22) 1px,transparent 1px);
+  background-size:64px 64px; transform:perspective(520px) rotateX(64deg); transform-origin:50% 0;
+  -webkit-mask-image:linear-gradient(to bottom,transparent,#000 45%); mask-image:linear-gradient(to bottom,transparent,#000 45%);
+  animation:floor 9s linear infinite;}
+@keyframes floor{to{background-position:0 64px,0 0}}
+.tower{position:absolute;top:8%;bottom:20%;width:min(16vw,190px);
+  border:1px solid rgba(110,150,255,.28);
+  background:linear-gradient(180deg,rgba(60,110,255,.16),rgba(60,110,255,.02)),
+    radial-gradient(circle,rgba(120,170,255,.35) 1px,transparent 1.5px) 0 0/14px 14px;
+  box-shadow:inset 0 0 40px rgba(59,109,255,.18),0 0 60px rgba(59,109,255,.12);}
+.tower.l{left:-4vw;transform:perspective(600px) rotateY(28deg)}
+.tower.r{right:-4vw;transform:perspective(600px) rotateY(-28deg)}
+.tower.l2{left:6vw;top:22%;bottom:28%;width:min(8vw,90px);opacity:.6;transform:perspective(600px) rotateY(24deg)}
+.tower.r2{right:6vw;top:26%;bottom:30%;width:min(8vw,90px);opacity:.6;transform:perspective(600px) rotateY(-24deg)}
+.streaks{position:absolute;inset:0;width:100%;height:100%}
+.streaks path{fill:none;stroke-linecap:round}
+.spark{position:absolute;width:6px;height:6px;border-radius:1px;background:var(--cyan);opacity:.7;box-shadow:0 0 10px var(--cyan);animation:float 7s ease-in-out infinite}
+.spark.v{background:var(--pink);box-shadow:0 0 10px var(--pink)}
+@keyframes float{50%{transform:translateY(-18px);opacity:.25}}
+
+/* ---------- Encabezado ---------- */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  max-width:1180px;margin:0 auto;padding:22px 20px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand svg{width:42px;height:42px;filter:drop-shadow(0 6px 18px rgba(80,90,255,.55))}
+.brand b{display:block;font-size:26px;font-weight:600;letter-spacing:.01em;line-height:1}
+.brand small{display:block;font-family:var(--mono);font-size:10px;letter-spacing:.42em;color:var(--muted);margin-top:4px}
+.tag{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:7px 12px;border-radius:999px;background:rgba(10,14,40,.5)}
+@media (max-width:520px){.tag{display:none}}
+
+/* ---------- Layout principal ---------- */
+.wrap{max-width:1180px;margin:0 auto;padding:8px 20px 40px;
+  display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:start}
+@media (max-width:920px){.wrap{grid-template-columns:1fr;gap:28px}}
+
+/* ---------- Hero ---------- */
+.hero{padding-top:28px}
+.kicker{font-family:var(--mono);font-size:13px;color:var(--cyan);letter-spacing:.04em}
+.invite{margin:18px 0 0;font-size:15px;letter-spacing:.5em;font-weight:500;color:#dfe4ff}
+.h1{margin:6px 0 0;font-size:clamp(46px,7vw,84px);line-height:.95;font-weight:700;letter-spacing:-.01em;
+  background:linear-gradient(180deg,#fff 20%,#b9c8ff);-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 22px rgba(90,130,255,.45))}
+.oficial{display:block;margin-top:10px;font-size:clamp(22px,3vw,32px);letter-spacing:.62em;font-weight:500;
+  background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.rule{width:150px;height:2px;margin:26px 0;background:var(--grad);border-radius:2px;box-shadow:0 0 16px rgba(139,70,255,.7)}
+.facts{list-style:none;padding:0;margin:0;display:grid;gap:16px}
+.facts li{display:flex;align-items:center;gap:16px}
+.ico{flex:none;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;position:relative;color:#dfe4ff;
+  background:rgba(12,18,48,.6)}
+.ico::before{content:"";position:absolute;inset:0;border-radius:50%;padding:1.5px;background:var(--grad);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.ico svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.facts b{display:block;font-size:18px;font-weight:600;letter-spacing:.12em;text-transform:uppercase}
+.facts li div span{display:block;font-size:13px;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-top:2px}
+.cocktail{display:flex;align-items:center;gap:12px;margin-top:26px;color:#cfd5f5;font-size:16px}
+.cocktail svg{width:30px;height:30px;fill:none;stroke:url(#gStroke);stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.countdown{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
+.cd{min-width:74px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:rgba(10,14,40,.55);text-align:center}
+.cd b{display:block;font-size:26px;font-weight:600;font-variant-numeric:tabular-nums}
+.cd small{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:.18em;text-transform:uppercase}
+.private{margin-top:24px;font-size:12px;letter-spacing:.32em;color:var(--muted);text-transform:uppercase}
+
+/* ---------- Panel / tarjeta ---------- */
+.panel{position:relative;border-radius:26px;padding:1px;background:linear-gradient(160deg,rgba(88,140,255,.55),rgba(139,70,255,.25) 40%,rgba(198,75,255,.45));
+  box-shadow:0 30px 80px rgba(0,0,10,.55),0 0 80px rgba(80,90,255,.18)}
+.panel-in{border-radius:25px;background:var(--card);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);padding:30px 28px}
+@media (max-width:480px){.panel-in{padding:24px 18px}}
+.panel h2{margin:0;font-size:26px;font-weight:600}
+.panel .sub{margin:6px 0 22px;color:var(--muted);font-size:15px;line-height:1.5}
+.code-tag{font-family:var(--mono);font-size:12px;color:var(--violet);margin-bottom:8px;display:block}
+
+.field{margin-bottom:16px}
+.field label{display:block;font-size:13px;font-weight:500;color:#c9cff0;margin-bottom:7px;letter-spacing:.02em}
+.input{position:relative}
+.input svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:19px;height:19px;fill:none;stroke:var(--dim);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s}
+.input input{width:100%;font:inherit;font-size:16px;color:var(--text);background:rgba(6,10,30,.7);
+  border:1px solid var(--line-strong);border-radius:14px;padding:14px 14px 14px 44px;outline:none;transition:border-color .2s,box-shadow .2s}
+.input input::placeholder{color:#5b6390}
+.input input:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(59,109,255,.18)}
+.input input:focus + svg,.input:focus-within svg{stroke:var(--cyan)}
+.field.bad input{border-color:var(--err);box-shadow:0 0 0 4px rgba(255,92,122,.14)}
+.err-txt{display:none;color:var(--err);font-size:12.5px;margin-top:6px}
+.field.bad .err-txt{display:block}
+.hint{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--muted);margin-top:7px}
+.hint::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--dim)}
+.hint.ok{color:var(--ok)}.hint.ok::before{background:var(--ok);box-shadow:0 0 8px var(--ok)}
+.hint.low{color:var(--warn)}.hint.low::before{background:var(--warn);box-shadow:0 0 8px var(--warn)}
+.hint.full{color:var(--err)}.hint.full::before{background:var(--err);box-shadow:0 0 8px var(--err)}
+
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--muted);line-height:1.45;margin:6px 0 20px;cursor:pointer}
+.consent input{appearance:none;flex:none;width:20px;height:20px;margin:1px 0 0;border-radius:6px;border:1.5px solid var(--line-strong);background:rgba(6,10,30,.7);display:grid;place-items:center;cursor:pointer}
+.consent input:checked{background:var(--grad);border-color:transparent}
+.consent input:checked::after{content:"";width:9px;height:5px;border:2px solid #fff;border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.consent.bad input{border-color:var(--err)}
+
+.btn{position:relative;display:inline-flex;align-items:center;justify-content:center;gap:10px;width:100%;
+  font:inherit;font-size:17px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#fff;cursor:pointer;
+  border:0;border-radius:999px;padding:17px 22px;background:linear-gradient(90deg,#2f5bff,#6a3dff 60%,#a43dff);
+  box-shadow:0 0 0 1px rgba(255,255,255,.18) inset,0 10px 30px rgba(80,70,255,.45),0 0 40px rgba(139,70,255,.35);transition:transform .15s,box-shadow .2s,filter .2s}
+.btn:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.btn:active{transform:translateY(0)}
+.btn[disabled]{opacity:.7;cursor:wait}
+.btn svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.btn.ghost{background:rgba(10,14,40,.6);box-shadow:0 0 0 1px var(--line-strong) inset;text-transform:none;letter-spacing:.01em;font-size:15px;font-weight:500;padding:13px 18px}
+.btn.ghost:hover{box-shadow:0 0 0 1px var(--blue) inset}
+.btn-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+@media (max-width:420px){.btn-row{grid-template-columns:1fr}}
+.spinner{width:18px;height:18px;border-radius:50%;border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.form-error{display:none;margin:0 0 14px;padding:12px 14px;border-radius:12px;font-size:14px;line-height:1.45;
+  background:rgba(255,92,122,.1);border:1px solid rgba(255,92,122,.35);color:#ffc2cd}
+.form-error.show{display:block}
+.note{margin:16px 0 0;text-align:center;font-size:12px;letter-spacing:.24em;color:var(--dim);text-transform:uppercase}
+
+/* ---------- Estados ---------- */
+.state{text-align:center;padding:10px 4px}
+.state .big-ico{width:86px;height:86px;margin:6px auto 18px;border-radius:50%;display:grid;place-items:center;position:relative;
+  background:radial-gradient(circle,rgba(88,120,255,.25),rgba(12,18,48,.2) 70%)}
+.state .big-ico::before{content:"";position:absolute;inset:0;border-radius:50%;padding:2px;background:var(--grad);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.state .big-ico svg{width:38px;height:38px;fill:none;stroke:#e6eaff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.state.warn .big-ico{background:radial-gradient(circle,rgba(255,181,71,.22),transparent 70%)}
+.state.warn .big-ico::before{background:linear-gradient(90deg,#ffb547,#ff7a59)}
+.state h2{margin:0 0 8px}
+.state p{color:var(--muted);line-height:1.55;margin:0 auto 18px;max-width:380px}
+.state strong{color:var(--text)}
+.email-pill{display:inline-block;font-family:var(--mono);font-size:14px;padding:8px 14px;border-radius:10px;border:1px solid var(--line-strong);background:rgba(6,10,30,.6);margin-bottom:18px;word-break:break-all}
+.steps-mini{text-align:left;max-width:360px;margin:0 auto 20px;padding:0;list-style:none;display:grid;gap:10px}
+.steps-mini li{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:#c9cff0;line-height:1.45}
+.steps-mini i{flex:none;font-style:normal;font-family:var(--mono);font-size:12px;width:24px;height:24px;border-radius:8px;display:grid;place-items:center;background:rgba(59,109,255,.18);color:var(--cyan)}
+.loader{width:56px;height:56px;margin:30px auto 18px;border-radius:50%;border:3px solid rgba(124,144,255,.2);border-top-color:var(--violet);border-right-color:var(--blue);animation:spin 1s linear infinite}
+
+/* ---------- Pase / boleto ---------- */
+.ticket-wrap{filter:drop-shadow(0 24px 50px rgba(0,0,20,.6)) drop-shadow(0 0 30px rgba(90,100,255,.25));margin:4px 0 22px}
+.ticket{width:100%;max-width:370px;margin:0 auto;font-family:"Outfit",sans-serif;color:#0b1033;
+  -webkit-print-color-adjust:exact;print-color-adjust:exact}
+.t-head{position:relative;overflow:hidden;border-radius:22px 22px 0 0;padding:22px 24px 24px;color:#fff;
+  background:radial-gradient(260px 160px at 100% 0%,rgba(198,75,255,.55),transparent 70%),
+             radial-gradient(240px 160px at 0% 100%,rgba(59,109,255,.55),transparent 70%),
+             linear-gradient(140deg,#070b26,#101a52 55%,#2a1566)}
+.t-head::after{content:"";position:absolute;inset:auto -10% -40% -10%;height:70%;
+  background-image:linear-gradient(rgba(140,160,255,.25) 1px,transparent 1px),linear-gradient(90deg,rgba(140,160,255,.25) 1px,transparent 1px);
+  background-size:22px 22px;transform:perspective(200px) rotateX(55deg);-webkit-mask-image:linear-gradient(to bottom,transparent,#000);mask-image:linear-gradient(to bottom,transparent,#000)}
+.t-brand{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between}
+.t-brand .lg{display:flex;align-items:center;gap:9px}
+.t-brand svg{width:32px;height:32px}
+.t-brand b{font-size:21px;font-weight:600;line-height:1}
+.t-brand small{display:block;font-family:var(--mono);font-size:8px;letter-spacing:.4em;opacity:.75;margin-top:3px}
+.t-chip{font-family:var(--mono);font-size:9.5px;letter-spacing:.22em;padding:6px 10px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08)}
+.t-title{position:relative;z-index:1;margin-top:20px}
+.t-title .a{font-size:11px;letter-spacing:.42em;opacity:.8}
+.t-title .b{font-size:34px;font-weight:700;letter-spacing:.01em;line-height:1.05;margin-top:4px;text-shadow:0 0 18px rgba(120,150,255,.6)}
+.t-title .c{font-size:15px;letter-spacing:.6em;font-weight:500;background:linear-gradient(90deg,#7aa2ff,#b07bff,#e07bff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.t-body{background:#fff;padding:22px 24px 6px;text-align:center}
+.t-label{font-family:var(--mono);font-size:10px;letter-spacing:.3em;color:#7a80a8;text-transform:uppercase}
+.t-name{font-size:25px;font-weight:700;line-height:1.15;margin:6px 0 4px;color:#0b1033;word-break:break-word}
+.t-role{font-size:14.5px;color:#4a5080;margin:0}
+.t-company{display:inline-block;margin-top:10px;padding:6px 14px;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:.06em;color:#3b2a9e;
+  background:linear-gradient(#fff,#fff) padding-box,linear-gradient(90deg,#3b6dff,#8b46ff,#c64bff) border-box;border:1.5px solid transparent;word-break:break-word}
+.t-qr{width:206px;margin:18px auto 8px;padding:12px;border-radius:18px;background:#fff;
+  box-shadow:0 0 0 1px #e4e7f6,0 8px 22px rgba(30,40,120,.12);position:relative}
+.t-qr svg{display:block;width:100%;height:auto}
+.t-qr::before,.t-qr::after{content:"";position:absolute;width:20px;height:20px;border:2.5px solid #6a4dff}
+.t-qr::before{top:-6px;left:-6px;border-right:0;border-bottom:0;border-radius:8px 0 0 0}
+.t-qr::after{bottom:-6px;right:-6px;border-left:0;border-top:0;border-radius:0 0 8px 0}
+.t-folio{font-family:var(--mono);font-size:13px;letter-spacing:.24em;color:#30366a;margin:8px 0 2px}
+.t-valid{font-size:11px;color:#8a90b5;letter-spacing:.06em;margin-bottom:6px}
+.t-cut{height:26px;background:#fff;position:relative;
+  -webkit-mask:radial-gradient(circle 13px at 0 50%,#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 50%,#0000 97%,#000) right/51% 100% no-repeat;
+          mask:radial-gradient(circle 13px at 0 50%,#0000 97%,#000) left/51% 100% no-repeat,radial-gradient(circle 13px at 100% 50%,#0000 97%,#000) right/51% 100% no-repeat}
+.t-cut::before{content:"";position:absolute;left:22px;right:22px;top:50%;border-top:2px dashed #d7dbef}
+.t-foot{background:#f3f4fb;padding:14px 18px 16px;border-radius:0 0 22px 22px;position:relative;overflow:hidden}
+.t-foot::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:linear-gradient(90deg,#3b6dff,#8b46ff,#c64bff)}
+.t-grid{display:grid;grid-template-columns:1fr 1fr 1.25fr;gap:8px}
+.t-grid div{text-align:left}
+.t-grid small{display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:.2em;color:#8a90b5;text-transform:uppercase}
+.t-grid b{display:block;font-size:12.5px;line-height:1.25;margin-top:3px;color:#151a45}
+.t-msg{margin-top:12px;font-size:10px;letter-spacing:.2em;color:#7a80a8;text-align:center;text-transform:uppercase}
+.welcome{display:flex;align-items:center;justify-content:center;gap:8px;margin:0 0 6px;font-size:14px;color:var(--ok);font-weight:500}
+.welcome svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.linkish{background:none;border:0;color:var(--muted);font:inherit;font-size:13.5px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;margin-top:14px}
+.linkish:hover{color:var(--text)}
+
+footer{max-width:1180px;margin:0 auto;padding:10px 20px 34px;display:flex;flex-wrap:wrap;gap:12px 22px;justify-content:space-between;color:var(--dim);font-size:13px}
+footer a{color:var(--muted);text-decoration:none}
+footer a:hover{color:var(--text)}
+
+.reveal{animation:reveal .55s cubic-bezier(.2,.8,.2,1) both}
+@keyframes reveal{from{opacity:0;transform:translateY(12px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---------- Impresión: sólo el pase ---------- */
+@page{size:letter;margin:14mm}
+@media print{
+  body{background:#fff!important}
+  .scene,.top,.hero,footer,.no-print{display:none!important}
+  .wrap{display:block;padding:0;max-width:none}
+  .panel{background:none!important;box-shadow:none!important;padding:0}
+  .panel-in{background:none!important;backdrop-filter:none!important;padding:0}
+  .ticket-wrap{filter:none;margin:0}
+  .ticket{max-width:95mm;box-shadow:0 0 0 .3mm #d7dbef;border-radius:22px}
+}
+</style>
+</head>
+<body>
+
+<!-- Símbolos reutilizables -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="lzA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f6bff"/><stop offset=".6" stop-color="#4b5cff"/><stop offset="1" stop-color="#7a3dff"/></linearGradient>
+    <linearGradient id="lzB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6b5bff"/><stop offset="1" stop-color="#c64bff"/></linearGradient>
+    <linearGradient id="gStroke" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#58b8ff"/><stop offset="1" stop-color="#c64bff"/></linearGradient>
+  </defs>
+  <symbol id="logo" viewBox="0 0 100 100">
+    <path d="M26 6h4a10 10 0 0 1 10 10v44h44a4 4 0 0 1 3.4 6.1L74.8 87.1A10 10 0 0 1 66.2 92H26a12 12 0 0 1-12-12V18A12 12 0 0 1 26 6z" fill="url(#lzA)"/>
+    <path d="M40 60h44a4 4 0 0 1 3.4 6.1L74.8 87.1A10 10 0 0 1 66.2 92H54z" fill="url(#lzB)" opacity=".85"/>
+    <path d="M14 80V18A12 12 0 0 1 26 6h4a10 10 0 0 1 10 10v44L22 90a12 12 0 0 1-8-10z" fill="#fff" opacity=".07"/>
+    <path d="M60 20l-8 8 8 8M82 20l8 8-8 8M75 15l-8 26" stroke="url(#lzB)" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
+<div class="scene" aria-hidden="true">
+  <div class="tower l"></div><div class="tower l2"></div>
+  <div class="tower r"></div><div class="tower r2"></div>
+  <svg class="streaks" viewBox="0 0 1440 900" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="st1" x1="0" x2="1"><stop offset="0" stop-color="#3b6dff" stop-opacity="0"/><stop offset=".5" stop-color="#58b8ff"/><stop offset="1" stop-color="#8b46ff" stop-opacity="0"/></linearGradient>
+      <linearGradient id="st2" x1="0" x2="1"><stop offset="0" stop-color="#8b46ff" stop-opacity="0"/><stop offset=".6" stop-color="#c64bff"/><stop offset="1" stop-color="#c64bff" stop-opacity="0"/></linearGradient>
+      <filter id="glow"><feGaussianBlur stdDeviation="3"/></filter>
+    </defs>
+    <path d="M-40 420 C 200 360, 260 560, 120 640 S -60 700, 260 720" stroke="url(#st2)" stroke-width="3" filter="url(#glow)"/>
+    <path d="M-40 420 C 200 360, 260 560, 120 640 S -60 700, 260 720" stroke="url(#st2)" stroke-width="1"/>
+    <path d="M1480 560 C 1260 520, 1160 640, 1000 640 S 900 600, 760 650" stroke="url(#st1)" stroke-width="3" filter="url(#glow)"/>
+    <path d="M1480 560 C 1260 520, 1160 640, 1000 640 S 900 600, 760 650" stroke="url(#st1)" stroke-width="1"/>
+    <path d="M1480 610 C 1300 590, 1180 700, 980 690" stroke="url(#st2)" stroke-width="1.5" opacity=".7"/>
+  </svg>
+  <div class="floor"></div>
+  <i class="spark" style="left:11%;top:22%"></i>
+  <i class="spark v" style="left:84%;top:18%;animation-delay:-2s"></i>
+  <i class="spark" style="left:91%;top:52%;animation-delay:-4s"></i>
+  <i class="spark v" style="left:6%;top:58%;animation-delay:-1s"></i>
+  <i class="spark" style="left:47%;top:8%;animation-delay:-3s;width:4px;height:4px"></i>
+</div>
+
+<header class="top">
+  <a class="brand" href="https://lazia.com.mx" target="_blank" rel="noopener">
+    <svg aria-hidden="true"><use href="#logo"/></svg>
+    <span><b>Lazia</b><small>SOFTWARE</small></span>
+  </a>
+  <span class="tag mono">// registro de invitados</span>
+</header>
+
+<main class="wrap">
+  <!-- ================= INVITACIÓN ================= -->
+  <section class="hero reveal">
+    <span class="kicker">&lt;evento tipo="privado" /&gt;</span>
+    <p class="invite">TE INVITA AL</p>
+    <h1 class="h1">LANZAMIENTO<span class="oficial">OFICIAL</span></h1>
+    <div class="rule"></div>
+    <ul class="facts">
+      <li><span class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M8 14h.01M12 14h.01M16 14h.01M8 17.5h.01M12 17.5h.01"/></svg></span>
+        <div><b id="evFecha">24 de noviembre de 2026</b><span id="evDia">Martes</span></div></li>
+      <li><span class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <div><b id="evHora">5:00 p. m.</b><span>Hora del centro de México</span></div></li>
+      <li><span class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+        <div><b id="evLugar">Auditorio Romualdo Tellería</b><span id="evLugar2">Arte</span></div></li>
+    </ul>
+    <div class="cocktail">
+      <svg viewBox="0 0 32 32"><path d="M6 5h8l-1.2 7.5a2.9 2.9 0 0 1-5.6 0zM10 15v9M6.5 27h7M18 5h8l-1.2 7.5a2.9 2.9 0 0 1-5.6 0zM22 15v9M18.5 27h7M14.5 2.5l1.5 1.5M17.5 2.5L16 4M16 1v2"/></svg>
+      Cocktail al finalizar la presentación
+    </div>
+    <div class="countdown" id="countdown" aria-label="Cuenta regresiva">
+      <div class="cd"><b id="cdD">--</b><small>días</small></div>
+      <div class="cd"><b id="cdH">--</b><small>horas</small></div>
+      <div class="cd"><b id="cdM">--</b><small>min</small></div>
+    </div>
+    <p class="private">Evento privado · Registro previo · <span id="limTxt">2</span> lugares por empresa</p>
+  </section>
+
+  <!-- ================= REGISTRO ================= -->
+  <section class="panel reveal" style="animation-delay:.08s">
+    <div class="panel-in">
+
+      <!-- Paso 1: formulario -->
+      <div data-step="form">
+        <span class="code-tag">// paso_01: tus datos</span>
+        <h2 id="formTitle">Reserva tu lugar</h2>
+        <p class="sub" id="formSub">Te enviaremos un enlace para confirmar tu correo. Al confirmarlo recibirás tu pase con código QR.</p>
+        <div class="form-error" id="formError" role="alert"></div>
+        <form id="regForm" novalidate>
+          <div class="field" data-f="nombre">
+            <label for="nombre">Nombre completo</label>
+            <div class="input">
+              <input id="nombre" name="nombre" autocomplete="name" maxlength="80" placeholder="Ej. Ana López Hernández" required>
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>
+            </div>
+            <div class="err-txt">Escribe tu nombre completo.</div>
+          </div>
+          <div class="field" data-f="puesto">
+            <label for="puesto">Puesto</label>
+            <div class="input">
+              <input id="puesto" name="puesto" autocomplete="organization-title" maxlength="80" placeholder="Ej. Directora de Operaciones" required>
+              <svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg>
+            </div>
+            <div class="err-txt">Indica tu puesto.</div>
+          </div>
+          <div class="field" data-f="empresa">
+            <label for="empresa">Empresa</label>
+            <div class="input">
+              <input id="empresa" name="empresa" autocomplete="organization" maxlength="100" placeholder="Ej. Grupo Orbis" required>
+              <svg viewBox="0 0 24 24"><path d="M4 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16M16 9h2a2 2 0 0 1 2 2v10M2 21h20M8 7h4M8 11h4M8 15h4"/></svg>
+            </div>
+            <div class="err-txt">Indica la empresa a la que representas.</div>
+            <div class="hint" id="cupoHint">Máximo 2 lugares por empresa</div>
+          </div>
+          <div class="field" data-f="email">
+            <label for="email">Correo electrónico</label>
+            <div class="input">
+              <input id="email" name="email" type="email" inputmode="email" autocomplete="email" maxlength="120" placeholder="tu@empresa.com" required>
+              <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+            </div>
+            <div class="err-txt">Escribe un correo válido.</div>
+          </div>
+          <label class="consent" id="consentWrap">
+            <input type="checkbox" id="consent">
+            <span>Acepto que LAZIA use mis datos únicamente para el registro y el control de acceso a este evento.</span>
+          </label>
+          <button class="btn" type="submit" id="submitBtn">
+            <span id="submitTxt">Regístrate aquí</span>
+            <svg viewBox="0 0 24 24" id="submitIco"><path d="m9 6 6 6-6 6"/></svg>
+          </button>
+        </form>
+        <p class="note">Evento privado · Registro previo</p>
+      </div>
+
+      <!-- Paso 2: enlace enviado -->
+      <div data-step="sent" class="state" hidden>
+        <div class="big-ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
+        <span class="code-tag">// paso_02: verifica tu correo</span>
+        <h2>Revisa tu bandeja de entrada</h2>
+        <p>Enviamos un enlace de confirmación a:</p>
+        <div class="email-pill" id="sentEmail"></div>
+        <ol class="steps-mini">
+          <li><i>01</i>Abre el correo con asunto de inicio de sesión (revisa también spam o promociones).</li>
+          <li><i>02</i>Da clic en el enlace. Puedes abrirlo en este u otro dispositivo.</li>
+          <li><i>03</i>Tu pase con código QR aparecerá listo para imprimir.</li>
+        </ol>
+        <div class="btn-row">
+          <button class="btn ghost" id="resendBtn" type="button">Reenviar enlace</button>
+          <button class="btn ghost" id="changeEmailBtn" type="button">Corregir datos</button>
+        </div>
+      </div>
+
+      <!-- Cargando -->
+      <div data-step="loading" class="state" hidden>
+        <div class="loader"></div>
+        <h2 id="loadingTitle">Confirmando tu registro…</h2>
+        <p id="loadingSub">Estamos verificando tu correo y apartando tu lugar.</p>
+      </div>
+
+      <!-- Cupo lleno -->
+      <div data-step="cupo" class="state warn" hidden>
+        <div class="big-ico"><svg viewBox="0 0 24 24"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17h.01"/></svg></div>
+        <span class="code-tag" style="color:var(--warn)">// cupo_limitado</span>
+        <h2>El cupo es limitado</h2>
+        <p><strong id="cupoEmpresa"></strong> ya tiene <strong id="cupoN">2</strong> personas registradas, que es el máximo permitido por empresa para este evento.</p>
+        <p style="font-size:14px">Si crees que se trata de un error o necesitas un lugar adicional, escríbenos a <a href="mailto:hello@lazia.com.mx">hello@lazia.com.mx</a> o por <a href="https://wa.me/525540176798" target="_blank" rel="noopener">WhatsApp</a>.</p>
+        <button class="btn ghost" id="cupoBack" type="button" style="max-width:280px">Volver al formulario</button>
+      </div>
+
+      <!-- Error -->
+      <div data-step="error" class="state warn" hidden>
+        <div class="big-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg></div>
+        <h2>Algo no salió bien</h2>
+        <p id="errorMsg"></p>
+        <button class="btn ghost" id="errorBack" type="button" style="max-width:280px">Intentar de nuevo</button>
+      </div>
+
+      <!-- Pase -->
+      <div data-step="ticket" hidden>
+        <p class="welcome no-print" id="welcomeMsg"><svg viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></svg><span>¡Registro confirmado!</span></p>
+        <div class="ticket-wrap">
+          <article class="ticket" id="ticket">
+            <div class="t-head">
+              <div class="t-brand">
+                <div class="lg"><svg aria-hidden="true"><use href="#logo"/></svg><div><b>Lazia</b><small>SOFTWARE</small></div></div>
+                <span class="t-chip">PASE DE ACCESO</span>
+              </div>
+              <div class="t-title">
+                <div class="a">TE INVITA AL</div>
+                <div class="b">LANZAMIENTO</div>
+                <div class="c">OFICIAL</div>
+              </div>
+            </div>
+            <div class="t-body">
+              <div class="t-label">Invitado</div>
+              <div class="t-name" id="tNombre"></div>
+              <p class="t-role" id="tPuesto"></p>
+              <span class="t-company" id="tEmpresa"></span>
+              <div class="t-qr" id="tQr"></div>
+              <div class="t-folio" id="tFolio"></div>
+              <div class="t-valid">Válido para 1 persona · Intransferible</div>
+            </div>
+            <div class="t-cut"></div>
+            <div class="t-foot">
+              <div class="t-grid">
+                <div><small>Fecha</small><b id="tFecha">24 nov 2026</b></div>
+                <div><small>Hora</small><b id="tHora">5:00 p. m.</b></div>
+                <div><small>Lugar</small><b id="tLugar">Auditorio Romualdo Tellería</b></div>
+              </div>
+              <div class="t-msg">Presenta este código en el acceso</div>
+            </div>
+          </article>
+        </div>
+        <div class="no-print">
+          <button class="btn" id="printBtn" type="button">
+            <svg viewBox="0 0 24 24"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="7" rx="1"/></svg>
+            Imprimir pase
+          </button>
+          <div class="btn-row">
+            <button class="btn ghost" id="pdfBtn" type="button">Guardar como PDF</button>
+            <button class="btn ghost" id="icsBtn" type="button">Agregar al calendario</button>
+          </div>
+          <div style="text-align:center"><button class="linkish" id="otherBtn" type="button">Registrar a otra persona</button></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>© 2026 LAZIA · Creative Software Agency</span>
+  <span><a href="mailto:hello@lazia.com.mx">hello@lazia.com.mx</a> · <a href="https://wa.me/525540176798" target="_blank" rel="noopener">55 4017 6798</a> · <a href="https://lazia.com.mx" target="_blank" rel="noopener">lazia.com.mx</a></span>
+</footer>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, sendSignInLinkToEmail, isSignInWithEmailLink, signInWithEmailLink, onAuthStateChanged, signOut }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, doc, getDoc, runTransaction, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* ================= CONFIGURACIÓN ================= */
+const firebaseConfig = {
+  apiKey: "AIzaSyC6VU0k3IdQnTb_DPW3ie8RkzgzUmmvOq0",
+  authDomain: "registro-78812.firebaseapp.com",
+  projectId: "registro-78812",
+  storageBucket: "registro-78812.firebasestorage.app",
+  messagingSenderId: "881216617458",
+  appId: "1:881216617458:web:2644c9366291c62b41496b",
+  measurementId: "G-K88R84L6DL"
+};
+// Si cambias este número, cámbialo también en firestore.rules
+const LIMITE_POR_EMPRESA = 2;
+const EVENTO = {
+  fechaLarga: "24 de noviembre de 2026",
+  dia: "Martes",
+  fechaCorta: "24 nov 2026",
+  hora: "5:00 p. m.",
+  lugar: "Auditorio Romualdo Tellería",
+  lugarDetalle: "Arte",
+  inicio: new Date("2026-11-24T17:00:00-06:00"),
+  fin: new Date("2026-11-24T19:30:00-06:00"),
+  prefijoQR: "LAZIA26"
+};
+/* ================================================= */
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+auth.languageCode = "es";
+const db = getFirestore(app);
+
+const $ = (s) => document.querySelector(s);
+const PENDING_KEY = "lazia_registro_pendiente";
+let linkHref = null;          // enlace de verificación pendiente de completar
+let pending = null;           // datos del formulario en espera de verificación
+let current = null;           // registro mostrado en el pase
+
+/* ---------- Utilidades ---------- */
+const clean = (s) => String(s ?? "").replace(/\s+/g, " ").trim();
+const store = {
+  save(d){ try{ localStorage.setItem(PENDING_KEY, JSON.stringify(d)); }catch{} },
+  load(){ try{ return JSON.parse(localStorage.getItem(PENDING_KEY) || "null"); }catch{ return null; } },
+  clear(){ try{ localStorage.removeItem(PENDING_KEY); }catch{} }
+};
+
+function show(step){
+  document.querySelectorAll("[data-step]").forEach((el) => {
+    const on = el.dataset.step === step;
+    el.hidden = !on;
+    if (on){ el.classList.remove("reveal"); void el.offsetWidth; el.classList.add("reveal"); }
+  });
+}
+
+// Normaliza el nombre de la empresa para que "Orbis Corp S.A. de C.V." y "orbiscorp" cuenten como la misma
+function empresaKey(nombre){
+  let s = clean(nombre).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+  s = s.replace(/&/g, " y ").replace(/[^a-z0-9ñ]+/g, " ").trim();
+  const sufijos = /\b(s a p i de c v|s a b de c v|s a de c v|s de r l de c v|s de r l|s c|s a|a c|sapi de cv|sa de cv|sapi|sab|sa|srl|cv|ac|inc|llc|ltd|sociedad anonima|de c v)\b/g;
+  let prev;
+  do { prev = s; s = s.replace(sufijos, " ").replace(/\s+/g, " ").trim(); } while (s !== prev);
+  const key = s.replace(/\s+/g, "");
+  return (key || clean(nombre).toLowerCase().replace(/[^a-z0-9]/g, "") || "empresa").slice(0, 80);
+}
+
+async function lugaresOcupados(key){
+  const snap = await getDoc(doc(db, "empresas", key));
+  return snap.exists() ? (snap.data().count || 0) : 0;
+}
+
+function mensajeError(err){
+  const c = err?.code || err?.message || "";
+  const map = {
+    "auth/invalid-email": "El correo no es válido. Revísalo e inténtalo de nuevo.",
+    "auth/invalid-action-code": "Este enlace ya se usó o expiró. Solicita uno nuevo desde el formulario.",
+    "auth/expired-action-code": "Este enlace expiró. Solicita uno nuevo desde el formulario.",
+    "auth/operation-not-allowed": "El acceso por enlace de correo no está habilitado en Firebase Authentication.",
+    "auth/unauthorized-continue-uri": "Este dominio no está autorizado en Firebase Authentication.",
+    "auth/unauthorized-domain": "Este dominio no está autorizado en Firebase Authentication.",
+    "auth/quota-exceeded": "Se alcanzó el límite diario de correos. Intenta de nuevo más tarde.",
+    "auth/too-many-requests": "Demasiados intentos. Espera unos minutos e inténtalo de nuevo.",
+    "auth/network-request-failed": "Sin conexión. Revisa tu internet e inténtalo de nuevo.",
+    "permission-denied": "No se pudo guardar el registro (permiso denegado).",
+    "unavailable": "El servicio no está disponible en este momento. Intenta de nuevo."
+  };
+  return map[c] || "Ocurrió un error inesperado. Intenta de nuevo en unos momentos.";
+}
+
+/* ---------- Contenido del evento ---------- */
+$("#evFecha").textContent = EVENTO.fechaLarga;
+$("#evDia").textContent = EVENTO.dia;
+$("#evHora").textContent = EVENTO.hora;
+$("#evLugar").textContent = EVENTO.lugar;
+$("#evLugar2").textContent = EVENTO.lugarDetalle;
+$("#tFecha").textContent = EVENTO.fechaCorta;
+$("#tHora").textContent = EVENTO.hora;
+$("#tLugar").textContent = EVENTO.lugar;
+$("#limTxt").textContent = LIMITE_POR_EMPRESA;
+$("#cupoHint").textContent = `Máximo ${LIMITE_POR_EMPRESA} lugares por empresa`;
+
+function tick(){
+  const ms = EVENTO.inicio - Date.now();
+  if (ms <= 0){ $("#countdown").hidden = true; return; }
+  const d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60;
+  $("#cdD").textContent = d; $("#cdH").textContent = String(h).padStart(2, "0"); $("#cdM").textContent = String(m).padStart(2, "0");
+}
+tick(); setInterval(tick, 30000);
+
+/* ---------- Disponibilidad por empresa (en vivo) ---------- */
+let chkTimer, chkSeq = 0;
+$("#empresa").addEventListener("input", () => { clearTimeout(chkTimer); chkTimer = setTimeout(revisarEmpresa, 600); });
+async function revisarEmpresa(){
+  const v = clean($("#empresa").value), el = $("#cupoHint"), seq = ++chkSeq;
+  if (v.length < 2){ el.className = "hint"; el.textContent = `Máximo ${LIMITE_POR_EMPRESA} lugares por empresa`; return; }
+  try{
+    const n = await lugaresOcupados(empresaKey(v));
+    if (seq !== chkSeq) return;
+    const libres = Math.max(0, LIMITE_POR_EMPRESA - n);
+    if (libres === 0){ el.className = "hint full"; el.textContent = "Cupo lleno para esta empresa"; }
+    else if (libres < LIMITE_POR_EMPRESA){ el.className = "hint low"; el.textContent = `Queda ${libres} lugar de ${LIMITE_POR_EMPRESA} para esta empresa`; }
+    else { el.className = "hint ok"; el.textContent = `${libres} de ${LIMITE_POR_EMPRESA} lugares disponibles`; }
+  }catch{ if (seq === chkSeq){ el.className = "hint"; el.textContent = `Máximo ${LIMITE_POR_EMPRESA} lugares por empresa`; } }
+}
+
+/* ---------- Formulario ---------- */
+function leerFormulario(){
+  return {
+    nombre: clean($("#nombre").value),
+    puesto: clean($("#puesto").value),
+    empresa: clean($("#empresa").value),
+    email: clean($("#email").value).toLowerCase()
+  };
+}
+function llenarFormulario(d){
+  if (!d) return;
+  $("#nombre").value = d.nombre || ""; $("#puesto").value = d.puesto || "";
+  $("#empresa").value = d.empresa || ""; $("#email").value = d.email || "";
+}
+function validar(d){
+  const reglas = {
+    nombre: d.nombre.length >= 5 && d.nombre.includes(" "),
+    puesto: d.puesto.length >= 2,
+    empresa: d.empresa.length >= 2,
+    email: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(d.email)
+  };
+  let ok = true;
+  for (const [k, v] of Object.entries(reglas)){
+    document.querySelector(`[data-f="${k}"]`).classList.toggle("bad", !v);
+    if (!v) ok = false;
+  }
+  const c = $("#consent").checked;
+  $("#consentWrap").classList.toggle("bad", !c);
+  if (!c) ok = false;
+  return ok;
+}
+document.querySelectorAll("#regForm input").forEach((i) =>
+  i.addEventListener("input", () => i.closest(".field,.consent")?.classList.remove("bad")));
+
+function setBusy(b, txt){
+  $("#submitBtn").disabled = b;
+  $("#submitTxt").textContent = b ? (txt || "Enviando…") : (linkHref ? "Confirmar registro" : "Regístrate aquí");
+  $("#submitIco").outerHTML = b ? '<span class="spinner" id="submitIco"></span>'
+    : '<svg viewBox="0 0 24 24" id="submitIco"><path d="m9 6 6 6-6 6"/></svg>';
+}
+function errorFormulario(msg){
+  const el = $("#formError");
+  el.textContent = msg || ""; el.classList.toggle("show", !!msg);
+}
+
+function urlDeRetorno(d){
+  const u = new URL(location.origin + location.pathname);
+  u.searchParams.set("d", JSON.stringify({ n: d.nombre, p: d.puesto, e: d.empresa, m: d.email }));
+  return u.toString();
+}
+async function enviarEnlace(d){
+  await sendSignInLinkToEmail(auth, d.email, { url: urlDeRetorno(d), handleCodeInApp: true });
+  pending = d; store.save(d);
+}
+
+$("#regForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  errorFormulario("");
+  const d = leerFormulario();
+  if (!validar(d)) return;
+  setBusy(true, linkHref ? "Confirmando…" : "Enviando…");
+  try{
+    if (linkHref){ await completarVerificacion(d); return; }
+    if (await lugaresOcupados(empresaKey(d.empresa)) >= LIMITE_POR_EMPRESA){ mostrarCupo(d.empresa); return; }
+    await enviarEnlace(d);
+    $("#sentEmail").textContent = d.email;
+    show("sent"); iniciarEspera();
+  }catch(err){
+    console.error(err); errorFormulario(mensajeError(err));
+  }finally{ setBusy(false); }
+});
+
+/* ---------- Reenvío ---------- */
+let waitTimer;
+function iniciarEspera(seg = 60){
+  const b = $("#resendBtn"); clearInterval(waitTimer); b.disabled = true;
+  let s = seg; b.textContent = `Reenviar en ${s}s`;
+  waitTimer = setInterval(() => {
+    s--; if (s <= 0){ clearInterval(waitTimer); b.disabled = false; b.textContent = "Reenviar enlace"; }
+    else b.textContent = `Reenviar en ${s}s`;
+  }, 1000);
+}
+$("#resendBtn").addEventListener("click", async () => {
+  if (!pending) return show("form");
+  $("#resendBtn").disabled = true; $("#resendBtn").textContent = "Enviando…";
+  try{ await enviarEnlace(pending); iniciarEspera(); }
+  catch(err){ $("#resendBtn").disabled = false; $("#resendBtn").textContent = "Reenviar enlace"; alert(mensajeError(err)); }
+});
+$("#changeEmailBtn").addEventListener("click", () => { llenarFormulario(pending); show("form"); });
+$("#cupoBack").addEventListener("click", () => { $("#empresa").value = ""; revisarEmpresa(); show("form"); });
+$("#errorBack").addEventListener("click", () => { linkHref = null; resetTitulos(); show("form"); });
+
+function mostrarCupo(empresa){
+  $("#cupoEmpresa").textContent = empresa;
+  $("#cupoN").textContent = LIMITE_POR_EMPRESA;
+  show("cupo");
+}
+function mostrarError(msg){ $("#errorMsg").textContent = msg; show("error"); }
+function resetTitulos(){
+  $("#formTitle").textContent = "Reserva tu lugar";
+  $("#formSub").textContent = "Te enviaremos un enlace para confirmar tu correo. Al confirmarlo recibirás tu pase con código QR.";
+  setBusy(false);
+}
+
+/* ---------- Verificación del enlace y registro ---------- */
+function datosDelEnlace(href){
+  const leer = (u) => {
+    try{
+      const url = new URL(u);
+      const d = url.searchParams.get("d");
+      if (d){ const o = JSON.parse(d); return { nombre: clean(o.n), puesto: clean(o.p), empresa: clean(o.e), email: clean(o.m).toLowerCase() }; }
+      const c = url.searchParams.get("continueUrl");
+      return c ? leer(c) : null;
+    }catch{ return null; }
+  };
+  return leer(href);
+}
+
+async function completarVerificacion(d){
+  show("loading");
+  try{
+    const cred = await signInWithEmailLink(auth, d.email, linkHref);
+    history.replaceState(null, "", location.pathname);
+    linkHref = null;
+    await registrar(cred.user, d);
+  }catch(err){
+    console.error(err);
+    if (err?.code === "auth/invalid-email"){
+      llenarFormulario(d); show("form");
+      errorFormulario("El correo no coincide con el que recibió el enlace. Escribe el mismo correo.");
+    } else {
+      history.replaceState(null, "", location.pathname);
+      linkHref = null; resetTitulos();
+      mostrarError(mensajeError(err));
+    }
+  }
+}
+
+async function registrar(user, d){
+  const key = empresaKey(d.empresa);
+  const regRef = doc(db, "registros", user.uid);
+  const empRef = doc(db, "empresas", key);
+  const folio = "LZ26-" + user.uid.slice(0, 6).toUpperCase();
+
+  const res = await runTransaction(db, async (tx) => {
+    const reg = await tx.get(regRef);
+    if (reg.exists()) return { ya: true, data: reg.data() };
+    const emp = await tx.get(empRef);
+    const count = emp.exists() ? (emp.data().count || 0) : 0;
+    if (count >= LIMITE_POR_EMPRESA) return { cupo: true };
+    if (emp.exists()) tx.update(empRef, { count: count + 1, actualizado: serverTimestamp() });
+    else tx.set(empRef, { nombre: d.empresa, count: 1, actualizado: serverTimestamp() });
+    const nuevo = {
+      nombre: d.nombre.slice(0, 80), puesto: d.puesto.slice(0, 80), empresa: d.empresa.slice(0, 100),
+      empresaId: key, email: user.email, folio, creado: serverTimestamp(), asistencia: false
+    };
+    tx.set(regRef, nuevo);
+    return { nuevo: true, data: nuevo };
+  });
+
+  store.clear(); pending = null;
+  if (res.cupo){ await signOut(auth); return mostrarCupo(d.empresa); }
+  mostrarPase(user.uid, res.data, res.ya ? "Ya estabas registrado. Este es tu pase." : "¡Registro confirmado! Tu lugar está apartado.");
+}
+
+/* ---------- Pase con QR ---------- */
+function qrSVG(texto){
+  const qr = qrcode(0, "M");
+  qr.addData(texto); qr.make();
+  const n = qr.getModuleCount();
+  let d = "";
+  for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (qr.isDark(r, c)) d += `M${c} ${r}h1v1h-1z`;
+  return `<svg viewBox="-1 -1 ${n + 2} ${n + 2}" shape-rendering="crispEdges" role="img" aria-label="Código QR de acceso">
+    <defs><linearGradient id="qrg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0b1240"/><stop offset="1" stop-color="#2a1566"/></linearGradient></defs>
+    <rect x="-1" y="-1" width="${n + 2}" height="${n + 2}" fill="#fff"/><path d="${d}" fill="url(#qrg)"/></svg>`;
+}
+
+function mostrarPase(uid, data, mensaje){
+  current = { uid, ...data };
+  $("#tNombre").textContent = data.nombre;
+  $("#tPuesto").textContent = data.puesto;
+  $("#tEmpresa").textContent = data.empresa;
+  $("#tFolio").textContent = data.folio;
+  $("#tQr").innerHTML = qrSVG(`${EVENTO.prefijoQR}|${uid}|${data.folio}`);
+  $("#welcomeMsg span").textContent = mensaje || "Tu pase de acceso";
+  document.title = `Pase ${data.folio} · Lanzamiento LAZIA`;
+  show("ticket");
+}
+
+$("#printBtn").addEventListener("click", () => window.print());
+$("#pdfBtn").addEventListener("click", () => {
+  alert("En la ventana de impresión elige «Guardar como PDF» como destino.");
+  window.print();
+});
+$("#icsBtn").addEventListener("click", () => {
+  const f = (d) => d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+  const ics = [
+    "BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//LAZIA//Registro//ES","CALSCALE:GREGORIAN","METHOD:PUBLISH",
+    "BEGIN:VEVENT",
+    `UID:lanzamiento-lazia-${current?.uid || "invitado"}@lazia.com.mx`,
+    `DTSTAMP:${f(new Date())}`, `DTSTART:${f(EVENTO.inicio)}`, `DTEND:${f(EVENTO.fin)}`,
+    "SUMMARY:Lanzamiento oficial · LAZIA Software",
+    `LOCATION:${EVENTO.lugar}\\, ${EVENTO.lugarDetalle}`,
+    `DESCRIPTION:Pase ${current?.folio || ""}. Presenta tu código QR en el acceso. Cocktail al finalizar la presentación.`,
+    "BEGIN:VALARM","TRIGGER:-PT2H","ACTION:DISPLAY","DESCRIPTION:Lanzamiento LAZIA","END:VALARM",
+    "END:VEVENT","END:VCALENDAR"
+  ].join("\r\n");
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([ics], { type: "text/calendar;charset=utf-8" }));
+  a.download = "lanzamiento-lazia.ics"; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+});
+$("#otherBtn").addEventListener("click", async () => {
+  await signOut(auth);
+  current = null; $("#regForm").reset(); $("#consent").checked = false; revisarEmpresa();
+  document.title = "Registro · Lanzamiento oficial LAZIA";
+  resetTitulos(); show("form");
+});
+
+/* ---------- Arranque ---------- */
+async function iniciar(){
+  if (isSignInWithEmailLink(auth, location.href)){
+    linkHref = location.href;
+    const d = store.load() || datosDelEnlace(linkHref);
+    if (d?.email && d?.nombre && d?.empresa){ await completarVerificacion(d); return; }
+    // Sin datos (p. ej. enlace abierto en otro navegador y sin parámetros): pedir confirmación
+    llenarFormulario(d);
+    $("#formTitle").textContent = "Confirma tus datos";
+    $("#formSub").textContent = "Escribe los mismos datos y el correo en el que recibiste el enlace para terminar tu registro.";
+    setBusy(false); show("form");
+    return;
+  }
+  pending = store.load();
+  const unsub = onAuthStateChanged(auth, async (user) => {
+    unsub();
+    if (!user){ if (pending) llenarFormulario(pending); return; }
+    try{
+      const snap = await getDoc(doc(db, "registros", user.uid));
+      if (snap.exists()) mostrarPase(user.uid, snap.data(), "Tu pase de acceso");
+      else $("#email").value = user.email || "";
+    }catch(err){ console.error(err); }
+  });
+}
+iniciar();
+</script>
+</body>
+</html>

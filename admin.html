@@ -1,0 +1,358 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Panel de registros · LAZIA</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#060610">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<style>
+:root{
+  --bg:#060610; --card:#0c1230; --card2:#0f1740; --line:rgba(124,144,255,.18); --line2:rgba(124,144,255,.32);
+  --text:#eef1ff; --muted:#9aa3c7; --dim:#6b7398;
+  --blue:#3b6dff; --violet:#8b46ff; --pink:#c64bff; --cyan:#58b8ff;
+  --ok:#38d39f; --warn:#ffb547; --err:#ff5c7a;
+  --grad:linear-gradient(90deg,#3b6dff,#8b46ff 55%,#c64bff);
+  --mono:"JetBrains Mono",ui-monospace,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:"Outfit",system-ui,sans-serif;color:var(--text);
+  background:radial-gradient(900px 420px at 50% -10%,rgba(59,109,255,.28),transparent 60%),radial-gradient(600px 400px at 100% 100%,rgba(139,70,255,.18),transparent 60%),var(--bg);
+  -webkit-font-smoothing:antialiased}
+[hidden]{display:none!important}
+.mono{font-family:var(--mono)}
+.wrap{max-width:1240px;margin:0 auto;padding:20px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:22px}
+.brand{display:flex;align-items:center;gap:12px}
+.brand svg{width:38px;height:38px}
+.brand b{font-size:22px;font-weight:600;display:block;line-height:1}
+.brand small{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.user{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:inherit;font-size:14px;font-weight:500;color:var(--text);
+  background:var(--card2);border:1px solid var(--line2);border-radius:12px;padding:10px 14px;cursor:pointer;white-space:nowrap;transition:border-color .2s,filter .2s}
+.btn:hover{border-color:var(--blue)}
+.btn.primary{background:var(--grad);border-color:transparent;font-weight:600;box-shadow:0 8px 24px rgba(90,70,255,.35)}
+.btn.primary:hover{filter:brightness(1.1)}
+.btn.sm{padding:6px 10px;font-size:12.5px;border-radius:9px}
+.btn.danger:hover{border-color:var(--err);color:#ffc2cd}
+.btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+.gate{max-width:420px;margin:12vh auto 0;text-align:center;padding:34px 28px;border-radius:22px;background:var(--card);border:1px solid var(--line2)}
+.gate h1{margin:14px 0 6px;font-size:24px}
+.gate p{color:var(--muted);line-height:1.5;margin:0 0 22px}
+.gate svg.lg{width:64px;height:64px}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+@media (max-width:760px){.stats{grid-template-columns:repeat(2,1fr)}}
+.stat{padding:16px 18px;border-radius:16px;background:var(--card);border:1px solid var(--line);position:relative;overflow:hidden}
+.stat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grad)}
+.stat small{font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase}
+.stat b{display:block;font-size:32px;font-weight:600;margin-top:4px;font-variant-numeric:tabular-nums}
+.stat span{font-size:12.5px;color:var(--dim)}
+
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.search{flex:1;min-width:220px;position:relative}
+.search input{width:100%;font:inherit;font-size:15px;color:var(--text);background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:11px 12px 11px 40px;outline:none}
+.search input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(59,109,255,.2)}
+.search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:18px;height:18px;fill:none;stroke:var(--dim);stroke-width:2}
+.seg{display:flex;background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:3px}
+.seg button{font:inherit;font-size:13px;color:var(--muted);background:none;border:0;padding:7px 12px;border-radius:9px;cursor:pointer}
+.seg button.on{background:var(--card2);color:var(--text);box-shadow:0 0 0 1px var(--line2)}
+
+.tablebox{border-radius:16px;background:var(--card);border:1px solid var(--line);overflow:auto}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:860px}
+th{position:sticky;top:0;background:#0d1436;text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:12px 14px;border-bottom:1px solid var(--line2)}
+td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+tr:last-child td{border-bottom:0}
+tbody tr:hover{background:rgba(59,109,255,.06)}
+td .nm{font-weight:600}
+td .sb{font-size:12.5px;color:var(--muted)}
+.folio{font-family:var(--mono);font-size:12.5px;color:#c9cff0}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid var(--line2);color:var(--muted);cursor:pointer;background:none;font-family:inherit}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--dim)}
+.pill.in{color:var(--ok);border-color:rgba(56,211,159,.4);background:rgba(56,211,159,.08)}
+.pill.in::before{background:var(--ok);box-shadow:0 0 8px var(--ok)}
+.emp-count{font-family:var(--mono);font-size:11px;padding:2px 7px;border-radius:6px;margin-left:6px;background:rgba(124,144,255,.14);color:var(--muted)}
+.emp-count.full{background:rgba(255,181,71,.14);color:var(--warn)}
+.empty{padding:50px 20px;text-align:center;color:var(--muted)}
+
+/* Escáner */
+.modal{position:fixed;inset:0;z-index:20;background:rgba(3,5,16,.78);backdrop-filter:blur(6px);display:grid;place-items:center;padding:16px}
+.sheet{width:100%;max-width:460px;border-radius:22px;background:var(--card);border:1px solid var(--line2);padding:20px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.sheet h2{margin:0 0 4px;font-size:20px}
+.sheet .sub{color:var(--muted);font-size:13.5px;margin:0 0 14px}
+#reader{border-radius:16px;overflow:hidden;background:#000;min-height:260px}
+#reader video{border-radius:16px}
+.scan-res{margin-top:14px;padding:16px;border-radius:16px;border:1px solid var(--line2);background:var(--card2);display:flex;gap:14px;align-items:center;min-height:84px}
+.scan-res .dot{flex:none;width:46px;height:46px;border-radius:50%;display:grid;place-items:center;background:rgba(124,144,255,.14)}
+.scan-res .dot svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.scan-res.ok{border-color:rgba(56,211,159,.5);background:rgba(56,211,159,.08)}.scan-res.ok .dot{color:var(--ok);background:rgba(56,211,159,.16)}
+.scan-res.warn{border-color:rgba(255,181,71,.5);background:rgba(255,181,71,.08)}.scan-res.warn .dot{color:var(--warn);background:rgba(255,181,71,.16)}
+.scan-res.bad{border-color:rgba(255,92,122,.5);background:rgba(255,92,122,.08)}.scan-res.bad .dot{color:var(--err);background:rgba(255,92,122,.16)}
+.scan-res b{display:block;font-size:17px}
+.scan-res span{font-size:13px;color:var(--muted)}
+.manual{display:flex;gap:8px;margin-top:12px}
+.manual input{flex:1;font:inherit;font-family:var(--mono);font-size:14px;color:var(--text);background:var(--bg);border:1px solid var(--line2);border-radius:10px;padding:9px 12px;outline:none;text-transform:uppercase}
+.sheet-foot{display:flex;justify-content:flex-end;margin-top:14px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:30;padding:11px 16px;border-radius:12px;background:var(--card2);border:1px solid var(--line2);font-size:14px;box-shadow:0 12px 30px rgba(0,0,0,.5)}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="lzA" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f6bff"/><stop offset=".6" stop-color="#4b5cff"/><stop offset="1" stop-color="#7a3dff"/></linearGradient>
+    <linearGradient id="lzB" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6b5bff"/><stop offset="1" stop-color="#c64bff"/></linearGradient>
+  </defs>
+  <symbol id="logo" viewBox="0 0 100 100">
+    <path d="M26 6h4a10 10 0 0 1 10 10v44h44a4 4 0 0 1 3.4 6.1L74.8 87.1A10 10 0 0 1 66.2 92H26a12 12 0 0 1-12-12V18A12 12 0 0 1 26 6z" fill="url(#lzA)"/>
+    <path d="M40 60h44a4 4 0 0 1 3.4 6.1L74.8 87.1A10 10 0 0 1 66.2 92H54z" fill="url(#lzB)" opacity=".85"/>
+    <path d="M60 20l-8 8 8 8M82 20l8 8-8 8M75 15l-8 26" stroke="url(#lzB)" stroke-width="4.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+</svg>
+
+<div class="wrap">
+  <header>
+    <div class="brand"><svg><use href="#logo"/></svg><div><b>Lazia</b><small>// panel de registros · lanzamiento</small></div></div>
+    <div class="user" id="userBox" hidden><span id="userEmail"></span><button class="btn sm" id="logoutBtn">Salir</button></div>
+  </header>
+
+  <!-- Acceso -->
+  <section class="gate" id="gateLogin" hidden>
+    <svg class="lg"><use href="#logo"/></svg>
+    <h1>Panel de registros</h1>
+    <p>Inicia sesión con una cuenta de Google autorizada como administrador.</p>
+    <button class="btn primary" id="loginBtn" style="width:100%">Entrar con Google</button>
+  </section>
+  <section class="gate" id="gateDenied" hidden>
+    <svg class="lg"><use href="#logo"/></svg>
+    <h1>Sin acceso</h1>
+    <p>La cuenta <b id="deniedEmail"></b> no está autorizada. Agrega un documento con este correo en la colección <span class="mono">admins</span> de Firestore.</p>
+    <button class="btn" id="deniedLogout" style="width:100%">Usar otra cuenta</button>
+  </section>
+  <section class="gate" id="gateLoading"><p>Cargando…</p></section>
+
+  <!-- Panel -->
+  <section id="dash" hidden>
+    <div class="stats">
+      <div class="stat"><small>Registros</small><b id="sTotal">0</b><span>invitados confirmados</span></div>
+      <div class="stat"><small>Empresas</small><b id="sEmp">0</b><span id="sEmpFull">0 con cupo lleno</span></div>
+      <div class="stat"><small>Asistencia</small><b id="sIn">0</b><span id="sInPct">0% de los registros</span></div>
+      <div class="stat"><small>Hoy</small><b id="sHoy">0</b><span>registros nuevos</span></div>
+    </div>
+
+    <div class="toolbar">
+      <div class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" placeholder="Buscar por nombre, empresa, correo o folio"></div>
+      <div class="seg" id="filtro">
+        <button class="on" data-v="todos">Todos</button><button data-v="dentro">Asistieron</button><button data-v="fuera">Pendientes</button>
+      </div>
+      <button class="btn primary" id="scanBtn"><svg viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M7 12h10"/></svg>Escanear entrada</button>
+      <button class="btn" id="csvBtn"><svg viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Exportar CSV</button>
+    </div>
+
+    <div class="tablebox">
+      <table>
+        <thead><tr><th>Folio</th><th>Invitado</th><th>Empresa</th><th>Correo</th><th>Registro</th><th>Asistencia</th><th></th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="empty" id="empty" hidden>Aún no hay registros que coincidan.</div>
+    </div>
+  </section>
+</div>
+
+<!-- Modal escáner -->
+<div class="modal" id="scanModal" hidden>
+  <div class="sheet">
+    <h2>Control de acceso</h2>
+    <p class="sub">Apunta la cámara al QR del pase. La entrada se registra automáticamente.</p>
+    <div id="reader"></div>
+    <div class="scan-res" id="scanRes"><div class="dot"><svg viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/></svg></div><div><b>Esperando código…</b><span>También puedes escribir el folio abajo.</span></div></div>
+    <form class="manual" id="manualForm"><input id="manualFolio" placeholder="LZ26-XXXXXX" autocomplete="off"><button class="btn" type="submit">Buscar</button></form>
+    <div class="sheet-foot"><button class="btn" id="closeScan">Cerrar</button></div>
+  </div>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore, collection, query, orderBy, onSnapshot, doc, getDoc, updateDoc, writeBatch, increment, serverTimestamp }
+  from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC6VU0k3IdQnTb_DPW3ie8RkzgzUmmvOq0",
+  authDomain: "registro-78812.firebaseapp.com",
+  projectId: "registro-78812",
+  storageBucket: "registro-78812.firebasestorage.app",
+  messagingSenderId: "881216617458",
+  appId: "1:881216617458:web:2644c9366291c62b41496b",
+  measurementId: "G-K88R84L6DL"
+};
+const LIMITE_POR_EMPRESA = 2;
+const PREFIJO_QR = "LAZIA26";
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const $ = (s) => document.querySelector(s);
+
+let rows = [], filtro = "todos", unsub = null;
+
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+const fmt = (ts) => ts?.toDate ? ts.toDate().toLocaleString("es-MX", { day:"2-digit", month:"short", hour:"2-digit", minute:"2-digit" }) : "—";
+const hora = (ts) => ts?.toDate ? ts.toDate().toLocaleTimeString("es-MX", { hour:"2-digit", minute:"2-digit" }) : "";
+function toast(msg){ const t = $("#toast"); t.textContent = msg; t.hidden = false; clearTimeout(t._t); t._t = setTimeout(() => t.hidden = true, 2600); }
+function gate(id){ ["gateLogin","gateDenied","gateLoading","dash"].forEach((g) => $("#"+g).hidden = g !== id); }
+
+/* ---------- Acceso ---------- */
+$("#loginBtn").onclick = () => signInWithPopup(auth, new GoogleAuthProvider()).catch((e) => toast("No se pudo iniciar sesión: " + (e.code || e.message)));
+$("#logoutBtn").onclick = $("#deniedLogout").onclick = () => signOut(auth);
+
+onAuthStateChanged(auth, async (user) => {
+  if (unsub){ unsub(); unsub = null; }
+  $("#userBox").hidden = !user;
+  if (!user) return gate("gateLogin");
+  $("#userEmail").textContent = user.email;
+  gate("gateLoading");
+  try{
+    const ok = (await getDoc(doc(db, "admins", user.email))).exists();
+    if (!ok){ $("#deniedEmail").textContent = user.email; return gate("gateDenied"); }
+  }catch{ $("#deniedEmail").textContent = user.email; return gate("gateDenied"); }
+  gate("dash");
+  unsub = onSnapshot(query(collection(db, "registros"), orderBy("creado", "desc")), (snap) => {
+    rows = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
+    render();
+  }, (err) => toast("Error al leer registros: " + err.code));
+});
+
+/* ---------- Tabla ---------- */
+$("#q").addEventListener("input", render);
+$("#filtro").addEventListener("click", (e) => {
+  const b = e.target.closest("button"); if (!b) return;
+  filtro = b.dataset.v;
+  $("#filtro").querySelectorAll("button").forEach((x) => x.classList.toggle("on", x === b));
+  render();
+});
+
+function render(){
+  const porEmpresa = {};
+  rows.forEach((r) => porEmpresa[r.empresaId] = (porEmpresa[r.empresaId] || 0) + 1);
+  const dentro = rows.filter((r) => r.asistencia).length;
+  const hoy = new Date().toDateString();
+  $("#sTotal").textContent = rows.length;
+  $("#sEmp").textContent = Object.keys(porEmpresa).length;
+  $("#sEmpFull").textContent = `${Object.values(porEmpresa).filter((n) => n >= LIMITE_POR_EMPRESA).length} con cupo lleno`;
+  $("#sIn").textContent = dentro;
+  $("#sInPct").textContent = `${rows.length ? Math.round(dentro * 100 / rows.length) : 0}% de los registros`;
+  $("#sHoy").textContent = rows.filter((r) => r.creado?.toDate && r.creado.toDate().toDateString() === hoy).length;
+
+  const q = $("#q").value.trim().toLowerCase();
+  const list = rows.filter((r) =>
+    (filtro === "todos" || (filtro === "dentro" ? r.asistencia : !r.asistencia)) &&
+    (!q || [r.nombre, r.puesto, r.empresa, r.email, r.folio].some((v) => String(v || "").toLowerCase().includes(q))));
+
+  $("#empty").hidden = list.length > 0;
+  $("#rows").innerHTML = list.map((r) => {
+    const n = porEmpresa[r.empresaId] || 0;
+    return `<tr>
+      <td class="folio">${esc(r.folio)}</td>
+      <td><div class="nm">${esc(r.nombre)}</div><div class="sb">${esc(r.puesto)}</div></td>
+      <td>${esc(r.empresa)}<span class="emp-count ${n >= LIMITE_POR_EMPRESA ? "full" : ""}">${n}/${LIMITE_POR_EMPRESA}</span></td>
+      <td class="sb">${esc(r.email)}</td>
+      <td class="sb">${fmt(r.creado)}</td>
+      <td><button class="pill ${r.asistencia ? "in" : ""}" data-toggle="${esc(r.id)}">${r.asistencia ? "Entró " + hora(r.checkin) : "Pendiente"}</button></td>
+      <td><button class="btn sm danger" data-del="${esc(r.id)}" title="Eliminar y liberar lugar">Eliminar</button></td>
+    </tr>`;
+  }).join("");
+}
+
+$("#rows").addEventListener("click", async (e) => {
+  const t = e.target.closest("[data-toggle]"), d = e.target.closest("[data-del]");
+  if (t){
+    const r = rows.find((x) => x.id === t.dataset.toggle); if (!r) return;
+    try{ await updateDoc(doc(db, "registros", r.id), { asistencia: !r.asistencia, checkin: !r.asistencia ? serverTimestamp() : null }); }
+    catch(err){ toast("No se pudo actualizar: " + err.code); }
+  }
+  if (d){
+    const r = rows.find((x) => x.id === d.dataset.del); if (!r) return;
+    if (!confirm(`¿Eliminar el registro de ${r.nombre} (${r.empresa})? Se liberará un lugar para su empresa.`)) return;
+    try{
+      const b = writeBatch(db);
+      b.delete(doc(db, "registros", r.id));
+      b.update(doc(db, "empresas", r.empresaId), { count: increment(-1), actualizado: serverTimestamp() });
+      await b.commit(); toast("Registro eliminado");
+    }catch(err){ toast("No se pudo eliminar: " + err.code); }
+  }
+});
+
+/* ---------- CSV ---------- */
+$("#csvBtn").onclick = () => {
+  const head = ["Folio","Nombre","Puesto","Empresa","Correo","Fecha de registro","Asistencia","Hora de entrada"];
+  const q = (v) => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const lines = rows.map((r) => [r.folio, r.nombre, r.puesto, r.empresa, r.email,
+    r.creado?.toDate ? r.creado.toDate().toLocaleString("es-MX") : "", r.asistencia ? "Sí" : "No",
+    r.checkin?.toDate ? r.checkin.toDate().toLocaleString("es-MX") : ""].map(q).join(","));
+  const blob = new Blob(["﻿" + [head.map(q).join(","), ...lines].join("\r\n")], { type: "text/csv;charset=utf-8" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob); a.download = `registros-lazia-${new Date().toISOString().slice(0,10)}.csv`; a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+};
+
+/* ---------- Escáner de entrada ---------- */
+let scanner = null, pausa = false;
+const ICON = {
+  ok: '<path d="m5 12 5 5 9-10"/>',
+  warn: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+  bad: '<path d="M6 6l12 12M18 6 6 18"/>'
+};
+function resultado(tipo, titulo, sub){
+  const el = $("#scanRes");
+  el.className = "scan-res " + tipo;
+  el.innerHTML = `<div class="dot"><svg viewBox="0 0 24 24">${ICON[tipo]}</svg></div><div><b>${esc(titulo)}</b><span>${esc(sub)}</span></div>`;
+}
+
+async function procesar(texto){
+  if (pausa) return; pausa = true;
+  try{
+    let r = null;
+    const partes = String(texto).trim().split("|");
+    if (partes[0] === PREFIJO_QR && partes[1]){
+      r = rows.find((x) => x.id === partes[1]);
+      if (!r){ const s = await getDoc(doc(db, "registros", partes[1])); if (s.exists()) r = { id: s.id, ...s.data() }; }
+    } else {
+      const f = String(texto).trim().toUpperCase();
+      r = rows.find((x) => (x.folio || "").toUpperCase() === f);
+    }
+    if (!r){ resultado("bad", "Código no válido", "No existe un registro con este código."); return; }
+    if (r.asistencia){ resultado("warn", r.nombre, `Ya había entrado a las ${hora(r.checkin) || "—"} · ${r.empresa}`); return; }
+    await updateDoc(doc(db, "registros", r.id), { asistencia: true, checkin: serverTimestamp() });
+    resultado("ok", `Bienvenido(a), ${r.nombre}`, `${r.puesto} · ${r.empresa}`);
+    navigator.vibrate?.(120);
+  }catch(err){ resultado("bad", "Error", err.code || err.message); }
+  finally{ setTimeout(() => pausa = false, 2500); }
+}
+
+$("#scanBtn").onclick = async () => {
+  $("#scanModal").hidden = false;
+  resultado("", "Esperando código…", "También puedes escribir el folio abajo.");
+  $("#scanRes").className = "scan-res";
+  try{
+    scanner = new Html5Qrcode("reader");
+    await scanner.start({ facingMode: "environment" }, { fps: 10, qrbox: { width: 230, height: 230 } }, procesar, () => {});
+  }catch(err){ resultado("bad", "No se pudo abrir la cámara", "Revisa los permisos del navegador o usa el folio."); }
+};
+async function cerrarScan(){
+  try{ if (scanner?.isScanning) await scanner.stop(); scanner?.clear(); }catch{}
+  scanner = null; $("#scanModal").hidden = true;
+}
+$("#closeScan").onclick = cerrarScan;
+$("#scanModal").addEventListener("click", (e) => { if (e.target.id === "scanModal") cerrarScan(); });
+$("#manualForm").addEventListener("submit", (e) => { e.preventDefault(); const v = $("#manualFolio").value; if (v.trim()){ pausa = false; procesar(v); $("#manualFolio").value = ""; } });
+</script>
+</body>
+</html>
